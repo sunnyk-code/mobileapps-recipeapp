@@ -10,7 +10,7 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
     const fetchRecipes = async () => {
       const querySnapshot = await getDocs(collection(firestore, 'recipes'));
       const recipesList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setRecipes(recipesList);
+      setRecipes(recipesList);
     };
 
     fetchRecipes();
