@@ -3,6 +3,7 @@ import { View, TextInput, Text, TouchableOpacity, StyleSheet, ScrollView } from 
 import { collection, addDoc } from 'firebase/firestore';
 import { firestore } from '../../firebaseConfig';
 import { useRouter } from 'expo-router';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
 
 export default function ExploreScreen() {
   const [title, setTitle] = useState('');
@@ -18,7 +19,10 @@ export default function ExploreScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.header}>Add a New Recipe</Text>
+      <View style={styles.headerContainer}>
+        <FastfoodIcon style={{ fontSize: 24, color: 'white' }} />
+        <Text style={styles.header}>Add a New Recipe</Text>
+      </View>
       <TextInput
         placeholder="Recipe Title"
         value={title}
@@ -43,15 +47,23 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 20,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#FFF5E1',
     justifyContent: 'center',
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+    backgroundColor: '#FF6347',
+    padding: 10,
+    borderRadius: 8,
   },
   header: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-    color: '#333',
+    color: '#fff',
+    marginLeft: 10,
   },
   input: {
     height: 40,
@@ -67,7 +79,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
   },
   button: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#FF6347',
     paddingVertical: 15,
     borderRadius: 8,
     alignItems: 'center',

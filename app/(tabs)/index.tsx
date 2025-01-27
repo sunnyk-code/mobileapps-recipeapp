@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { firestore } from '../../firebaseConfig';
+import { MaterialIcons } from '@expo/vector-icons';
 
 type Recipe = {
   id: string;
@@ -23,7 +24,10 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Recipes</Text>
+      <View style={styles.headerContainer}>
+        <MaterialIcons name="restaurant-menu" size={28} color="#fff" />
+        <Text style={styles.header}>Recipes</Text>
+      </View>
       <FlatList
         data={recipes}
         keyExtractor={(item) => item.id}
@@ -42,17 +46,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#FFF5E1',
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+    backgroundColor: '#FF6347',
+    padding: 10,
+    borderRadius: 8,
   },
   header: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
     color: '#fff',
-    backgroundColor: '#007BFF',
-    padding: 10,
-    borderRadius: 8,
+    marginLeft: 10,
   },
   recipeItem: {
     padding: 15,
@@ -65,7 +74,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 2,
     borderLeftWidth: 5,
-    borderLeftColor: '#007BFF',
+    borderLeftColor: '#FF6347',
   },
   title: {
     fontSize: 18,

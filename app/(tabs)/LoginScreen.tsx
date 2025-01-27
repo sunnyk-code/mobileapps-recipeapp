@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
 import { useRouter } from 'expo-router';
 import { useAuth } from '../../contexts/AuthContext';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -28,15 +29,12 @@ export default function LoginScreen() {
         return;
       }
       await createUserWithEmailAndPassword(auth, email, password);
-      setSuccess('Account created successfully! You can now sign in.');
-      setEmail('');
-      setPassword('');
-    } catch (err: any) {
-      console.error('Sign-up error:', err.message);
-      if (err.code === 'auth/email-already-in-use') {
-        setError('This email is already in use. Please try signing in.');
+      setSuccess('Account created successfully!');
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
       } else {
-        setError('Error creating account. Please try again.');
+        setError('An unknown error occurred.');
       }
     }
   };
@@ -50,41 +48,45 @@ export default function LoginScreen() {
         return;
       }
       await signInWithEmailAndPassword(auth, email, password);
-      setSuccess('Signed in successfully!');
-      setEmail('');
-      setPassword('');
-      router.replace('/(tabs)'); // Navigate to the tab layout after successful sign-in
-    } catch (err: any) {
-      console.error('Sign-in error:', err.message);
-      if (err.code === 'auth/user-not-found') {
-        setError('No user found with this email.');
-      } else if (err.code === 'auth/wrong-password') {
-        setError('Incorrect password. Please try again.');
+      setSuccess('Logged in successfully!');
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
       } else {
-        setError('Error signing in. Please try again.');
+        setError('An unknown error occurred.');
       }
     }
   };
 
   return (
     <View style={styles.container}>
+      <View style={styles.headerContainer}>
+        <MaterialIcons name="login" size={28} color="#fff" />
+        <Text style={styles.header}>Login</Text>
+      </View>
+      {error ? <Text style={styles.errorText}>{error}</Text> : null}
+      {success ? <Text style={styles.successText}>{success}</Text> : null}
       <TextInput
-        style={styles.input}
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
+        style={styles.input}
+        keyboardType="email-address"
+        autoCapitalize="none"
       />
       <TextInput
-        style={styles.input}
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
+        style={styles.input}
         secureTextEntry
       />
-      {error ? <Text style={styles.error}>{error}</Text> : null}
-      {success ? <Text style={styles.success}>{success}</Text> : null}
-      <Button title="Sign In" onPress={handleSignIn} />
-      <Button title="Sign Up" onPress={handleSignUp} />
+      <TouchableOpacity style={styles.button} onPress={handleSignIn}>
+        <Text style={styles.buttonText}>Sign In</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+        <Text style={styles.buttonText}>Sign Up</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -92,22 +94,54 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 20,
+    backgroundColor: '#FFF5E1',
     justifyContent: 'center',
-    padding: 16,
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+    backgroundColor: '#FF6347',
+    padding: 10,
+    borderRadius: 8,
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginLeft: 10,
   },
   input: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: '#ccc',
     borderWidth: 1,
-    marginBottom: 12,
-    paddingHorizontal: 8,
+    borderRadius: 8,
+    marginBottom: 15,
+    paddingHorizontal: 10,
+    backgroundColor: '#fff',
   },
-  error: {
+  button: {
+    backgroundColor: '#FF6347',
+    paddingVertical: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  errorText: {
     color: 'red',
-    marginBottom: 12,
+    marginBottom: 10,
+    textAlign: 'center',
   },
-  success: {
+  successText: {
     color: 'green',
-    marginBottom: 12,
+    marginBottom: 10,
+    textAlign: 'center',
   },
 });
