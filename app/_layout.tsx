@@ -1,21 +1,15 @@
-import { Tabs } from 'expo-router';
 import React from 'react';
-import { Platform } from 'react-native';
+import { Stack } from 'expo-router';
+import { AuthProvider } from '../contexts/AuthContext';
 
-export default function TabLayout() {
+export default function RootLayout() {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarStyle: Platform.select({
-          ios: { position: 'absolute' },
-          default: {},
-        }),
-        headerShown: false,
-      }}
-    >
-      <Tabs.Screen name="index" options={{ title: 'Home' }} />
-      <Tabs.Screen name="ExploreScreen" options={{ title: 'Explore' }} />
-      <Tabs.Screen name="LoginScreen" options={{ title: 'Login' }} />
-    </Tabs>
+    <AuthProvider>
+      <Stack>
+        <Stack.Screen name="LoginScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" />
+      </Stack>
+    </AuthProvider>
   );
 }
