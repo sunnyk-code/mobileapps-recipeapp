@@ -12,7 +12,7 @@ export default function ExploreScreen() {
   const handleAddRecipe = async () => {
     if (title && description) {
       await addDoc(collection(firestore, 'recipes'), { title, description });
-      router.push('/(tabs)'); // Navigate to the home screen
+      router.push('/(tabs)'); 
     }
   };
 
