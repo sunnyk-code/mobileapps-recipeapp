@@ -18,32 +18,32 @@ export default function ExploreScreen() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.headerContainer}>
+    <ScrollView contentContainerStyle={Styles.container}>
+      <View style={Styles.headerContainer}>
         <FastfoodIcon style={{ fontSize: 24, color: 'white' }} />
-        <Text style={styles.header}>Add a New Recipe</Text>
+        <Text style={Styles.header}>Add a New Recipe</Text>
       </View>
       <TextInput
         placeholder="Recipe Title"
         value={title}
         onChangeText={setTitle}
-        style={styles.input}
+        style={Styles.input}
       />
       <TextInput
         placeholder="Recipe Description"
         value={description}
         onChangeText={setDescription}
-        style={[styles.input, styles.textArea]}
+        style={[Styles.input, Styles.textArea]}
         multiline
       />
-      <TouchableOpacity style={styles.button} onPress={handleAddRecipe}>
-        <Text style={styles.buttonText}>Save Recipe</Text>
+      <TouchableOpacity style={Styles.button} onPress={handleAddRecipe}>
+        <Text style={Styles.buttonText}>Save Recipe</Text>
       </TouchableOpacity>
     </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
+const Styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 20,

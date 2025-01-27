@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
+import LoginScreen from '../LoginScreen';
 
 export default function TabLayout() {
   return (

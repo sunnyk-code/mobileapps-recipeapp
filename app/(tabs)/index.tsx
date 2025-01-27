@@ -23,18 +23,18 @@ export default function HomeScreen() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.headerContainer}>
+    <View style={Styles.container}>
+      <View style={Styles.headerContainer}>
         <MaterialIcons name="restaurant-menu" size={28} color="#fff" />
-        <Text style={styles.header}>Recipes</Text>
+        <Text style={Styles.header}>Recipes</Text>
       </View>
       <FlatList
         data={recipes}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.recipeItem}>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.description}>{item.description}</Text>
+          <View style={Styles.recipeItem}>
+            <Text style={Styles.title}>{item.title}</Text>
+            <Text style={Styles.description}>{item.description}</Text>
           </View>
         )}
       />
@@ -42,7 +42,7 @@ export default function HomeScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const Styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
