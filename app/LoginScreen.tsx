@@ -38,10 +38,12 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Add Material Icon */}
-      <MaterialIcons name="restaurant" size={100} color="#FF6347" style={styles.icon} />
-
-      {/* Input Fields */}
+      <View style={styles.headerContainer}>
+        <MaterialIcons name="restaurant-menu" size={40} color="#FF6347" />
+        <Text style={styles.header}>Welcome to GrubSpot</Text>
+      </View>
+      {error ? <Text style={styles.error}>{error}</Text> : null}
+      {success ? <Text style={styles.success}>{success}</Text> : null}
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -76,18 +78,23 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 20,
+    backgroundColor: '#FFF5E1', // Light beige background
     justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-    backgroundColor: '#FFF5E1',
   },
-  icon: {
-    marginBottom: 32,
+  headerContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  header: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#FF6347', // Tomato color
+    marginTop: 10,
   },
   input: {
-    width: '90%',
     height: 50,
-    borderColor: '#DDD',
+    borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 8,
     backgroundColor: '#FFF',
@@ -97,11 +104,10 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   button: {
-    width: '90%',
-    backgroundColor: '#FF6347',
-    padding: 15,
-    alignItems: 'center',
+    backgroundColor: '#FF6347', // Tomato color
+    paddingVertical: 15,
     borderRadius: 8,
+    alignItems: 'center',
     marginBottom: 12,
   },
   buttonText: {
