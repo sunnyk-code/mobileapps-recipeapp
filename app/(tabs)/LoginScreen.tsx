@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
+import { useRouter } from 'expo-router';
+import { useAuth } from '../../contexts/AuthContext';
 
-export default function LoginScreen({ navigation }: { navigation: any }) {
+export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const router = useRouter();
+  const authContext = useAuth();
+
+  useEffect(() => {
+    if (authContext?.user) {
+      router.replace('/(tabs)');
+    }
+  }, [authContext?.user]);
 
   const handleSignUp = async () => {
     try {
@@ -39,19 +49,17 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
         setError('Email and password cannot be empty.');
         return;
       }
-      console.log('Attempting to sign in with:', email);
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log('User signed in successfully:', userCredential.user);
-      navigation.navigate('index');
+      await signInWithEmailAndPassword(auth, email, password);
+      setSuccess('Signed in successfully!');
+      setEmail('');
+      setPassword('');
+      router.replace('/(tabs)'); // Navigate to the tab layout after successful sign-in
     } catch (err: any) {
-      console.error('Sign-in error code:', err.code);
-      console.error('Sign-in error message:', err.message);
+      console.error('Sign-in error:', err.message);
       if (err.code === 'auth/user-not-found') {
-        setError('No account found with this email.');
+        setError('No user found with this email.');
       } else if (err.code === 'auth/wrong-password') {
         setError('Incorrect password. Please try again.');
-      } else if (err.code === 'auth/invalid-email') {
-        setError('The email address is invalid.');
       } else {
         setError('Error signing in. Please try again.');
       }
@@ -61,23 +69,20 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
   return (
     <View style={styles.container}>
       <TextInput
+        style={styles.input}
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
-        style={styles.input}
-        keyboardType="email-address"
-        autoCapitalize="none"
-        autoCorrect={false}
       />
       <TextInput
+        style={styles.input}
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
-        style={styles.input}
         secureTextEntry
       />
-      {error ? <Text style={styles.errorText}>{error}</Text> : null}
-      {success ? <Text style={styles.successText}>{success}</Text> : null}
+      {error ? <Text style={styles.error}>{error}</Text> : null}
+      {success ? <Text style={styles.success}>{success}</Text> : null}
       <Button title="Sign In" onPress={handleSignIn} />
       <Button title="Sign Up" onPress={handleSignUp} />
     </View>
@@ -97,11 +102,11 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     paddingHorizontal: 8,
   },
-  errorText: {
+  error: {
     color: 'red',
     marginBottom: 12,
   },
-  successText: {
+  success: {
     color: 'green',
     marginBottom: 12,
   },
