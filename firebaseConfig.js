@@ -4,15 +4,14 @@ import { getFirestore } from "firebase/firestore";
 console.log("Firebase API Key:", process.env.REACT_APP_FIREBASE_API_KEY);
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDHb0lvF_WHi_8zCPCmaRCxUtVIQir5EFc",
-    authDomain: "recipes-42a46.firebaseapp.com",
-    projectId: "recipes-42a46",
-    storageBucket: "recipes-42a46.firebasestorage.app",
-    messagingSenderId: "718344503556",
-    appId: "1:718344503556:web:67f8b5fa423829f10cd051",
-    measurementId: "G-8HC04JT7VL",
-  };
-  
+  apiKey: "AIzaSyAEssjTQFNAtITkQho42T3tW-gVlDqISeU",
+  authDomain: "react-native-43af4.firebaseapp.com",
+  projectId: "react-native-43af4",
+  storageBucket: "react-native-43af4.firebasestorage.app",
+  messagingSenderId: "32211562604",
+  appId: "1:32211562604:web:52f36fb9402cc5c32ca849",
+  measurementId: "G-TC6W0T5DPN"
+};
 
 const app = initializeApp(firebaseConfig);
 
