@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   secondaryButton: {
-    backgroundColor: 'rgba(255, 99, 71, 0.2)', // Semi-transparent tomato
+    backgroundColor: 'rgba(255, 99, 71, 0git )', // Semi-transparent tomato
     borderColor: '#FF6347',
     borderWidth: 2,
     paddingVertical: 15,
