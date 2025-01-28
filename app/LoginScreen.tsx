@@ -116,15 +116,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   secondaryButton: {
-    width: '90%',
-    borderColor: '#FF6347',
-    borderWidth: 2,
-    padding: 15,
-    alignItems: 'center',
+    backgroundColor: '#FF6347', // Tomato color
+    paddingVertical: 15,
     borderRadius: 8,
+    alignItems: 'center',
+    marginBottom: 12,
   },
   secondaryButtonText: {
-    color: '#FF6347',
+    color: '#FFFFFF',
     fontSize: 18,
     fontWeight: 'bold',
   },
