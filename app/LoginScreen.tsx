@@ -42,8 +42,11 @@ export default function LoginScreen() {
         <MaterialIcons name="restaurant-menu" size={40} color="#FF6347" />
         <Text style={styles.header}>Welcome to GrubSpot</Text>
       </View>
+      
+      {/* Error and Success Messages */}
       {error ? <Text style={styles.error}>{error}</Text> : null}
       {success ? <Text style={styles.success}>{success}</Text> : null}
+
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -60,14 +63,10 @@ export default function LoginScreen() {
         placeholderTextColor="#888"
       />
 
-      {/* Error and Success Messages */}
-      {error ? <Text style={styles.error}>{error}</Text> : null}
-      {success ? <Text style={styles.success}>{success}</Text> : null}
-
-      {/* Sign In and Sign Up Buttons */}
       <TouchableOpacity style={styles.button} onPress={handleSignIn}>
         <Text style={styles.buttonText}>Sign In</Text>
       </TouchableOpacity>
+
       <TouchableOpacity style={styles.secondaryButton} onPress={handleSignUp}>
         <Text style={styles.secondaryButtonText}>Sign Up</Text>
       </TouchableOpacity>
@@ -116,14 +115,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   secondaryButton: {
-    backgroundColor: '#FF6347', // Tomato color
+    backgroundColor: 'rgba(255, 99, 71, 0.2)', // Semi-transparent tomato
+    borderColor: '#FF6347',
+    borderWidth: 2,
     paddingVertical: 15,
     borderRadius: 8,
     alignItems: 'center',
     marginBottom: 12,
   },
   secondaryButtonText: {
-    color: '#FFFFFF',
+    color: '#FF6347',
     fontSize: 18,
     fontWeight: 'bold',
   },
